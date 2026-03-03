@@ -396,12 +396,13 @@ summary span {
             <strong>Vi värderar ett rättvist pris</strong> – berätta om ditt projekt så skickar vi en offert.
         </p>
 
-        <form action="https://formspree.io/f/xwvngknj" method="POST">
-    <input type="hidden" name="_next" value="https://axonstudios.github.io/Axon/tack.html">
+        <form id="my-form" action="https://formspree.io/f/xwvngknj" method="POST">
     <input type="text" name="name" class="input-box" placeholder="Ditt namn" required>
     <input type="email" name="email" class="input-box" placeholder="Din mejladress" required>
     <textarea name="message" class="input-box" rows="5" placeholder="Beskriv din drömhemsida..."></textarea>
-    <button type="submit">Skicka förfrågan</button>
+    <button type="submit" id="submit-btn">Skicka förfrågan</button>
+    
+    <p id="status" style="margin-top: 15px; font-weight: bold;"></p>
         </form>
     <h2>Få en offert</h2>
 </div>
@@ -493,6 +494,42 @@ summary span {
     document.querySelectorAll('.info-card').forEach(card => {
         observer.observe(card);
     });
+
+    var form = document.getElementById("my-form");
+    
+async function handleSubmit(event) {
+  event.preventDefault(); // Hindrar sidan från att laddas om eller skicka dig till Formspree
+  var status = document.getElementById("status");
+  var btn = document.getElementById("submit-btn");
+  var data = new FormData(event.target);
+  
+  btn.innerHTML = "Skickar...";
+  btn.disabled = true;
+
+  fetch(event.target.action, {
+    method: form.method,
+    body: data,
+    headers: {
+        'Accept': 'application/json'
+    }
+  }).then(response => {
+    if (response.ok) {
+      status.innerHTML = "Tack! Vi har tagit emot din förfrågan. 👋";
+      status.style.color = "#007AFF"; // AXON-blå
+      form.reset(); // Tömmer rutorna så de blir blanka igen
+      btn.innerHTML = "Skickat!";
+    } else {
+      status.innerHTML = "Hoppsan! Något gick fel, försök igen.";
+      status.style.color = "red";
+      btn.disabled = false;
+      btn.innerHTML = "Försök igen";
+    }
+  }).catch(error => {
+    status.innerHTML = "Det gick inte att skicka just nu.";
+    btn.disabled = false;
+  });
+}
+form.addEventListener("submit", handleSubmit)
 </script>
 
 </body>
