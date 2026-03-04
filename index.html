@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AXON</title>
     <style>
-details summary::-webkit-details-marker {
-    display: none;
-}
+        /* HÄR INNE SKA BARA CSS FINNAS - INGA META-TAGGAR */
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        /* ... resten av din CSS ... */
 
 details[open] summary span {
     transform: rotate(45deg);
@@ -185,6 +187,12 @@ summary span {
             font-family: inherit;
             resize: none; /* FIXAR BUGGEN */
         }
+        #status {
+    text-align: center;
+    width: 100%;
+    margin-top: 15px; /* Ger lite luft mellan knappen och texten */
+    font-family: inherit; /* Ser till att det är samma typsnitt som resten */
+}
 
         button {
             width: 100%;
@@ -259,6 +267,32 @@ summary span {
     transform: translateY(0);
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Ta bort max-width här eller sätt den till 100% */
+    margin: 0 auto;
+}
+
+.input-box {
+    width: 100%;      /* Tar upp hela bredden av formuläret */
+    box-sizing: border-box; /* Ser till att padding inte "spränger" bredden */
+    margin-bottom: 15px;
+}
+
+@media (max-width: 600px) {
+    .info-grid {
+        flex-direction: column; /* Lägger korten på höjden på mobilen */
+        align-items: center;
+    }
+    
+    h1 { font-size: 3rem; } /* Gör rubriken lite mindre på mobilen */
+    
+    .container {
+        padding: 40px 20px; /* Mindre padding så det får plats på smala skärmar */
+    }
+}
     </style>
 </head>
 <body>
