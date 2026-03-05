@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AXON</title>
     <style>
+    #bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    width: auto; 
+    height: auto;
+    z-index: -2; /* Hamnar bakom allt */
+    object-fit: cover; /* Ser till att videon fyller skärmen utan att bli platt */
+}
+
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Gör videon 50% mörkare så vit text syns perfekt */
+    z-index: -1; /* Mellan videon och innehållet */
+}
         /* HÄR INNE SKA BARA CSS FINNAS - INGA META-TAGGAR */
         details summary::-webkit-details-marker {
             display: none;
@@ -324,6 +345,11 @@ form {
     </style>
 </head>
 <body>
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="background.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+
 <div class="menu-btn" onclick="toggleMenu()">
     <span></span>
     <span></span>
